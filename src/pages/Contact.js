@@ -18,63 +18,22 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SchoolIcon from "@mui/icons-material/School";
 import WorkIcon from "@mui/icons-material/Work";
+import { contentConfig } from "../config/content";
+
+const iconComponents = {
+  EmailIcon: EmailIcon,
+  LocationOnIcon: LocationOnIcon,
+  SchoolIcon: SchoolIcon,
+  WorkIcon: WorkIcon,
+  TwitterIcon: TwitterIcon,
+  LinkedInIcon: LinkedInIcon,
+  GitHubIcon: GitHubIcon,
+  InstagramIcon: InstagramIcon,
+};
 
 const Contact = () => {
   const theme = useTheme();
-
-  const socialLinks = [
-    {
-      icon: <LinkedInIcon sx={{ fontSize: 40 }} />,
-      url: "https://www.linkedin.com/in/volkan-ayding%C3%BCl-5a516117a/",
-      label: "LinkedIn",
-      description: "Connect with me professionally",
-    },
-    {
-      icon: <GitHubIcon sx={{ fontSize: 40 }} />,
-      url: "https://github.com/vaydingul",
-      label: "GitHub",
-      description: "Check out my code repositories",
-    },
-    {
-      icon: <TwitterIcon sx={{ fontSize: 40 }} />,
-      url: "https://twitter.com/vaydingul",
-      label: "Twitter",
-      description: "Follow me for updates",
-    },
-    {
-      icon: <InstagramIcon sx={{ fontSize: 40 }} />,
-      url: "https://www.instagram.com/vaydingul/",
-      label: "Instagram",
-      description: "Follow my personal journey",
-    },
-  ];
-
-  const contactInfo = [
-    {
-      icon: <EmailIcon sx={{ fontSize: 30 }} />,
-      label: "Email",
-      value: "volkanaydingul@gmail.com",
-      description: "Best way to reach me",
-    },
-    {
-      icon: <LocationOnIcon sx={{ fontSize: 30 }} />,
-      label: "Location",
-      value: "Frankfurt am Main, Germany",
-      description: "Current location",
-    },
-    {
-      icon: <WorkIcon sx={{ fontSize: 30 }} />,
-      label: "Work",
-      value: "Research Engineer",
-      description: "Current position",
-    },
-    {
-      icon: <SchoolIcon sx={{ fontSize: 30 }} />,
-      label: "Education",
-      value: "MSc Computational Science",
-      description: "Current academic status",
-    },
-  ];
+  const { contact } = contentConfig;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -96,6 +55,11 @@ const Contact = () => {
         duration: 0.5,
       },
     },
+  };
+
+  const getIcon = (iconName) => {
+    const IconComponent = iconComponents[iconName];
+    return IconComponent ? <IconComponent sx={{ fontSize: 30 }} /> : null;
   };
 
   return (
@@ -124,7 +88,7 @@ const Contact = () => {
             WebkitTextFillColor: "transparent",
           }}
         >
-          Let's Connect
+          {contact.title}
         </Typography>
 
         <Typography
@@ -135,8 +99,7 @@ const Contact = () => {
           color="text.secondary"
           sx={{ mb: 6, maxWidth: "800px", mx: "auto" }}
         >
-          I'm always interested in new opportunities, collaborations, and
-          connecting with fellow researchers and engineers.
+          {contact.subtitle}
         </Typography>
 
         {/* Contact Information Cards */}
@@ -146,7 +109,7 @@ const Contact = () => {
           component={motion.div}
           variants={itemVariants}
         >
-          {contactInfo.map((info, index) => (
+          {contact.contactInfo.map((info, index) => (
             <Grid item xs={12} sm={6} key={index}>
               <Paper
                 elevation={3}
@@ -166,7 +129,7 @@ const Contact = () => {
               >
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                   <Box sx={{ color: theme.palette.primary.main }}>
-                    {info.icon}
+                    {getIcon(info.icon)}
                   </Box>
                   <Box>
                     <Typography variant="h6" color="primary" gutterBottom>
@@ -208,7 +171,7 @@ const Contact = () => {
               justifyContent: "center",
             }}
           >
-            {socialLinks.map((link, index) => (
+            {contact.socialLinks.map((link, index) => (
               <Tooltip key={index} title={link.description} arrow>
                 <IconButton
                   href={link.url}
@@ -225,7 +188,7 @@ const Contact = () => {
                     },
                   }}
                 >
-                  {link.icon}
+                  {getIcon(link.icon)}
                 </IconButton>
               </Tooltip>
             ))}

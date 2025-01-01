@@ -7,7 +7,7 @@ import {
   Avatar,
   useTheme,
 } from "@mui/material";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
@@ -15,70 +15,7 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
-
-const timelineData = [
-  {
-    title: "Codeway Studios",
-    date: "October 2023 - Present",
-    description:
-      "Working as an AI research Engineer at Codeway Studios. Working on audio-visual generative models.",
-    image: "timeline/codeway.jpeg",
-  },
-
-  {
-    title: "Autonomous Vision Group",
-    date: "June 2022 - September 2023",
-    description:
-      "Working as a computer vision researcher at Autonomous Vision Group. Working on the model-based policy learning for urban driving.",
-    image: "timeline/vision.jpg",
-  },
-  {
-    title: "KUIS AI Laboratory",
-    date: "June 2021 - September 2023",
-    description: "Working as an AI researcher at KUIS AI Laboratory.",
-    image: "timeline/kuis.jpg",
-  },
-  {
-    title: "Robotics and Mechatronics Laboratory",
-    date: "September 2020 - June 2022",
-    description:
-      "Worked as a research assistant at RML. Worked on the generation of proper signals to convey tactile feeling to high-end consumer electronics with touch screen (i.e., surface haptics).",
-    image: "timeline/robot.jpg",
-  },
-  {
-    title: "Koc University",
-    date: "September 2020 - September 2023",
-    description: "Studying Computational Science and Engineering at KU.",
-    image: "timeline/ku.jpg",
-  },
-  {
-    title: "HAVELSAN Inc.",
-    date: "March 2020 - September 2020",
-    description:
-      "Worked as a Candidate Systems Engineer at HAVELSAN Inc. Worked on the development of simulation technologies.",
-    image: "timeline/simulation.jpg",
-  },
-  {
-    title: "TUBITAK UZAY",
-    date: "August 2019",
-    description:
-      "Did internship at TUBITAK UZAY. Worked on systems engineering practices applied on the production of a CubeSat.",
-    image: "timeline/satellite.jpg",
-  },
-  {
-    title: "TUBITAK SAGE",
-    date: "June 2019",
-    description:
-      "Did internship at TUBITAK SAGE. Worked on flight mechanics, navigational systems and motion planning.",
-    image: "timeline/missile.png",
-  },
-  {
-    title: "Middle East Technical University",
-    date: "September 2015 - August 2020",
-    description: "Studied Aerospace Engineering at METU.",
-    image: "timeline/odtu.png",
-  },
-];
+import { contentConfig } from "../config/content";
 
 const TimelinePage = () => {
   const theme = useTheme();
@@ -88,6 +25,8 @@ const TimelinePage = () => {
     damping: 30,
     restDelta: 0.001,
   });
+
+  const { timeline } = contentConfig;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -155,11 +94,11 @@ const TimelinePage = () => {
               textShadow: "0 0 40px rgba(33, 150, 243, 0.3)",
             }}
           >
-            Professional Timeline
+            {timeline.title}
           </Typography>
 
           <Timeline position="alternate">
-            {timelineData.map((item, index) => (
+            {timeline.items.map((item, index) => (
               <TimelineItem key={index}>
                 <TimelineOppositeContent>
                   <motion.div
@@ -216,7 +155,7 @@ const TimelinePage = () => {
                       />
                     </TimelineDot>
                   </motion.div>
-                  {index !== timelineData.length - 1 && (
+                  {index !== timeline.items.length - 1 && (
                     <TimelineConnector
                       sx={{
                         background:
