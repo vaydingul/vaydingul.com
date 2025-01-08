@@ -96,7 +96,7 @@ To personalize the website:
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/vaydingul.com.git
+git clone https://github.com/vaydingul/vaydingul.com.git
 cd vaydingul.com
 ```
 
